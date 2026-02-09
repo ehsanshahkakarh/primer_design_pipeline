@@ -69,10 +69,13 @@ python scripts/design_primers.py --gene 18S --all
 ├── filtered/
 │   └── {taxon}_1200bp.fasta      # Length-filtered sequences
 ├── align/
-│   └── {taxon}_aligned.fasta     # MAFFT alignment
+│   └── {taxon}_aligned.fasta           # MAFFT alignment
 └── primers/
-    ├── {taxon}_consensus.fasta   # Consensus sequence
-    └── {taxon}_primers.json      # Designed primers with stats
+    ├── {taxon}_consensus.fasta         # Consensus sequence
+    ├── {taxon}_primers_all_sizes.json  # All primers (500bp, 1000bp, 1500bp)
+    ├── {taxon}_primers_500bp.json      # 500bp product primers only
+    ├── {taxon}_primers_1000bp.json     # 1000bp product primers only
+    └── {taxon}_primers_1500bp.json     # 1500bp product primers only
 ```
 
 ## Test Data
@@ -104,9 +107,15 @@ The pipeline tracks detailed statistics at each step:
 
 ## Primer Design Parameters
 
-- Optimal Tm: 60°C (range: 57-63°C)
+The pipeline now designs primers for **three different product sizes**:
+- **500bp** (range: 450-550bp)
+- **1000bp** (range: 950-1050bp)
+- **1500bp** (range: 1450-1550bp)
+
+### Primer3 Settings (Applied to All Sizes)
+
+- Optimal Tm: 60°C (range: 55-65°C)
 - Optimal GC: 50% (range: 40-60%)
 - Primer length: 18-25bp (optimal: 20bp)
-- Product size: 200-800bp
-- Max poly-X: 4bp
+- Number of primer pairs returned: 5 per product size
 

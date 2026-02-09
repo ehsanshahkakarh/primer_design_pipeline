@@ -123,13 +123,13 @@ def find_conserved_regions(conservation_scores, min_length=18, threshold=0.8, wi
 
 
 def run_primer3(sequence, taxon_name, target_regions=None, product_range=(200, 800)):
-    """Run primer3 to design primers."""
+    """Run primer3 to design primers for a specific product size range."""
     # Remove gaps from sequence for primer3
     clean_seq = sequence.replace('-', '').replace('N', '')
-    
+
     if len(clean_seq) < product_range[0]:
-        return {'error': f'Sequence too short ({len(clean_seq)} bp)'}
-    
+        return {'error': f'Sequence too short ({len(clean_seq)} bp) for product range {product_range[0]}-{product_range[1]}'}
+
     # Build primer3 input
     input_lines = [
         f"SEQUENCE_ID={taxon_name}",
@@ -149,17 +149,67 @@ def run_primer3(sequence, taxon_name, target_regions=None, product_range=(200, 8
         "PRIMER_NUM_RETURN=5",
         "="
     ]
-    
+
     input_text = '\n'.join(input_lines)
-    
+
     result = subprocess.run(
         ['primer3_core'],
         input=input_text,
         capture_output=True,
         text=True
     )
-    
+
     return parse_primer3_output(result.stdout)
+
+
+def run_primer3_multiple_sizes(sequence, taxon_name, product_sizes=None):
+    """
+    Run primer3 to design primers for multiple product sizes.
+
+    Args:
+        sequence: Consensus sequence
+        taxon_name: Name of the taxon
+        product_sizes: List of target product sizes (e.g., [500, 1000, 1500])
+                      Each will use a ±50bp range around the target
+
+    Returns:
+        Dictionary with results for each product size
+    """
+    if product_sizes is None:
+        product_sizes = [500, 1000, 1500]
+
+    results = {}
+    clean_seq = sequence.replace('-', '').replace('N', '')
+    seq_length = len(clean_seq)
+
+    for target_size in product_sizes:
+        # Define range as ±50bp around target
+        min_size = max(target_size - 50, 100)  # Don't go below 100bp
+        max_size = target_size + 50
+
+        # Check if sequence is long enough
+        if seq_length < min_size:
+            results[f'{target_size}bp'] = {
+                'error': f'Sequence too short ({seq_length} bp) for {target_size}bp product',
+                'target_size': target_size,
+                'primers': []
+            }
+            continue
+
+        # Adjust max_size if sequence is too short
+        if seq_length < max_size:
+            max_size = seq_length
+
+        # Run primer3 for this product size
+        primer_result = run_primer3(sequence, f"{taxon_name}_{target_size}bp",
+                                   product_range=(min_size, max_size))
+
+        # Add metadata
+        primer_result['target_size'] = target_size
+        primer_result['size_range'] = (min_size, max_size)
+        results[f'{target_size}bp'] = primer_result
+
+    return results
 
 
 def parse_primer3_output(output):
@@ -299,44 +349,61 @@ def design_primers_for_taxon(alignment_file, output_dir, taxon_name=None, max_se
     stats['conservation']['num_conserved_regions'] = len(conserved)
     print(f"     📊 Found {len(conserved)} conserved regions suitable for primers")
 
-    # Step 4: Design primers
-    print("   → Running primer3...")
-    primer_results = run_primer3(consensus, taxon_name)
+    # Step 4: Design primers for multiple product sizes
+    print("   → Running primer3 for multiple product sizes...")
+    print(f"     Target sizes: 500bp, 1000bp, 1500bp")
 
-    if 'error' in primer_results:
-        print(f"     ⚠ {primer_results['error']}")
-        stats['primers']['error'] = primer_results['error']
-        return {'error': primer_results['error'], 'taxon': taxon_name, 'stats': stats}
+    all_primer_results = run_primer3_multiple_sizes(consensus, taxon_name,
+                                                     product_sizes=[500, 1000, 1500])
 
-    stats['primers']['num_pairs'] = len(primer_results.get('primers', []))
+    # Track stats for each product size
+    stats['primers']['by_size'] = {}
+    total_successful = 0
 
-    if primer_results['primers']:
-        print(f"     ✓ Designed {len(primer_results['primers'])} primer pairs")
+    for size_label, primer_results in all_primer_results.items():
+        if 'error' in primer_results:
+            print(f"     ⚠ {size_label}: {primer_results['error']}")
+            stats['primers']['by_size'][size_label] = {
+                'error': primer_results['error'],
+                'num_pairs': 0
+            }
+        else:
+            num_pairs = len(primer_results.get('primers', []))
+            stats['primers']['by_size'][size_label] = {'num_pairs': num_pairs}
 
-        # Add stats to primer results
-        primer_results['stats'] = stats
+            if num_pairs > 0:
+                total_successful += 1
+                print(f"     ✓ {size_label}: Designed {num_pairs} primer pairs")
 
-        # Save results
-        results_file = output_dir / f"{taxon_name}_primers.json"
-        with open(results_file, 'w') as f:
-            json.dump(primer_results, f, indent=2)
+                # Print best primer for this size
+                best = primer_results['primers'][0]
+                stats['primers']['by_size'][size_label]['best_forward'] = best['left_sequence']
+                stats['primers']['by_size'][size_label]['best_reverse'] = best['right_sequence']
+                stats['primers']['by_size'][size_label]['best_product_size'] = best['product_size']
 
-        # Print best primer pair
-        best = primer_results['primers'][0]
-        stats['primers']['best_forward'] = best['left_sequence']
-        stats['primers']['best_reverse'] = best['right_sequence']
-        stats['primers']['best_product_size'] = best['product_size']
+                print(f"        Best pair: {best['product_size']}bp product")
+                print(f"        Forward: {best['left_sequence']} (Tm={best['left_tm']:.1f}°C, GC={best['left_gc']:.0f}%)")
+                print(f"        Reverse: {best['right_sequence']} (Tm={best['right_tm']:.1f}°C, GC={best['right_gc']:.0f}%)")
+            else:
+                print(f"     ⚠ {size_label}: No suitable primers found")
 
-        print(f"\n   📌 Best primer pair:")
-        print(f"      Forward: {best['left_sequence']} (Tm={best['left_tm']:.1f}°C, GC={best['left_gc']:.0f}%)")
-        print(f"      Reverse: {best['right_sequence']} (Tm={best['right_tm']:.1f}°C, GC={best['right_gc']:.0f}%)")
-        print(f"      Product: {best['product_size']} bp")
-    else:
-        print("     ⚠ No suitable primers found")
-        # Save stats even if no primers found
-        stats_file = output_dir / f"{taxon_name}_stats.json"
-        with open(stats_file, 'w') as f:
-            json.dump(stats, f, indent=2)
+    # Add overall stats
+    stats['primers']['total_successful_sizes'] = total_successful
+    all_primer_results['stats'] = stats
+
+    # Save all results
+    results_file = output_dir / f"{taxon_name}_primers_all_sizes.json"
+    with open(results_file, 'w') as f:
+        json.dump(all_primer_results, f, indent=2)
+
+    print(f"\n   📊 Summary: Successfully designed primers for {total_successful}/3 product sizes")
+
+    # Also save individual files for each size
+    for size_label, primer_results in all_primer_results.items():
+        if size_label != 'stats' and 'primers' in primer_results and len(primer_results['primers']) > 0:
+            size_file = output_dir / f"{taxon_name}_primers_{size_label}.json"
+            with open(size_file, 'w') as f:
+                json.dump(primer_results, f, indent=2)
 
     return {
         'taxon': taxon_name,
@@ -344,7 +411,7 @@ def design_primers_for_taxon(alignment_file, output_dir, taxon_name=None, max_se
         'sequences_used': len(sequences),
         'consensus_length': len(clean_consensus),
         'conserved_regions': len(conserved),
-        'primers': primer_results.get('primers', []),
+        'primers_by_size': all_primer_results,
         'stats': stats
     }
 
@@ -381,8 +448,22 @@ def main():
         print(f"\n{'='*60}")
         print("📊 Summary")
         print(f"{'='*60}")
-        success = [r for r in results if r.get('primers')]
+        success = [r for r in results if r.get('primers_by_size')]
         print(f"Successfully designed primers for {len(success)}/{len(results)} taxa")
+
+        # Count successes by product size
+        size_success = {'500bp': 0, '1000bp': 0, '1500bp': 0}
+        for r in results:
+            if 'primers_by_size' in r:
+                for size_label in ['500bp', '1000bp', '1500bp']:
+                    if size_label in r['primers_by_size']:
+                        primers = r['primers_by_size'][size_label].get('primers', [])
+                        if len(primers) > 0:
+                            size_success[size_label] += 1
+
+        print(f"\nPrimer design success by product size:")
+        for size_label, count in size_success.items():
+            print(f"  {size_label}: {count}/{len(results)} taxa")
 
     elif args.alignment:
         output_dir = args.output or Path(args.alignment).parent.parent / 'primers'
