@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large data directories (exclude from git)
+# Keep only test_data for examples
+/18S/
+/16S/
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# Large intermediate files
+*.fna
+*.fasta.bak
+

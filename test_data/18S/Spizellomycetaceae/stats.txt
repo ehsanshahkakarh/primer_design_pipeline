@@ -1,0 +1,15 @@
+Spizellomycetaceae (Family) - Sequence Statistics
+==================================================
+
+Taxon: Spizellomycetaceae_F
+Rank: Family
+Gene: 18S rRNA
+
+Sequence Counts:
+----------------
+Sequences in FASTA: 52
+Aligned sequences: 52
+
+Note: These 52 sequences are OTU centroids (97% clustering).
+Length filtering was skipped (seqkit not available).
+

@@ -1,0 +1,15 @@
+Paramoeba (Genus) - Sequence Statistics
+========================================
+
+Taxon: Paramoeba_G
+Rank: Genus
+Gene: 18S rRNA
+
+Sequence Counts:
+----------------
+Sequences in FASTA: 20
+Aligned sequences: 20
+
+Note: These 20 sequences are OTU centroids (97% clustering).
+Length filtering was skipped (seqkit not available).
+

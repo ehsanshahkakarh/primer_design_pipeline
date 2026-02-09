@@ -1,0 +1,15 @@
+Paramoebidae (Family) - Sequence Statistics
+============================================
+
+Taxon: Paramoebidae_F
+Rank: Family
+Gene: 18S rRNA
+
+Sequence Counts:
+----------------
+Sequences in FASTA: 54
+Aligned sequences: 54
+
+Note: These 54 sequences are OTU centroids (97% clustering).
+Length filtering was skipped (seqkit not available).
+
