@@ -1,0 +1,10 @@
+{
+  "taxon": "Alveolata_C",
+  "rank": "class",
+  "gene": "18S",
+  "tsv_total": 60488,
+  "centroids": 9042,
+  "cluster_members": 51446,
+  "fasta_sequences": 9042,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

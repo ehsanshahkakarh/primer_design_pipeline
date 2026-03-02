@@ -1,0 +1,10 @@
+{
+  "taxon": "Stylonychia_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 7715,
+  "centroids": 800,
+  "cluster_members": 6915,
+  "fasta_sequences": 800,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

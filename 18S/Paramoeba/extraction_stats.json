@@ -1,0 +1,10 @@
+{
+  "taxon": "Paramoeba_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 31,
+  "centroids": 20,
+  "cluster_members": 11,
+  "fasta_sequences": 20,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

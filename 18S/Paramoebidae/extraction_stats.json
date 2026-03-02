@@ -1,0 +1,10 @@
+{
+  "taxon": "Paramoebidae_F",
+  "rank": "family",
+  "gene": "18S",
+  "tsv_total": 81,
+  "centroids": 54,
+  "cluster_members": 27,
+  "fasta_sequences": 54,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

@@ -1,0 +1,10 @@
+{
+  "taxon": "Thalassiosira_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 6048,
+  "centroids": 309,
+  "cluster_members": 5739,
+  "fasta_sequences": 309,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

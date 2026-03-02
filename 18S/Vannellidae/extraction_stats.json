@@ -1,0 +1,10 @@
+{
+  "taxon": "Vannellidae_F",
+  "rank": "family",
+  "gene": "18S",
+  "tsv_total": 94,
+  "centroids": 56,
+  "cluster_members": 38,
+  "fasta_sequences": 56,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

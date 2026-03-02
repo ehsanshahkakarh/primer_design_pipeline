@@ -1,0 +1,10 @@
+{
+  "taxon": "Ulva_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 176,
+  "centroids": 55,
+  "cluster_members": 121,
+  "fasta_sequences": 55,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

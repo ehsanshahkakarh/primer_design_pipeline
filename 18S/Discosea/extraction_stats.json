@@ -1,0 +1,10 @@
+{
+  "taxon": "Discosea_P",
+  "rank": "division",
+  "gene": "18S",
+  "tsv_total": 1365,
+  "centroids": 399,
+  "cluster_members": 966,
+  "fasta_sequences": 399,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

@@ -1,0 +1,17 @@
+{
+  "extraction": {
+    "count": 32,
+    "total_bp": 36345,
+    "min_len": 829,
+    "max_len": 4921,
+    "avg_len": 1135.8
+  },
+  "filtering": {},
+  "alignment": {
+    "input_sequences": 32,
+    "output_sequences": 32,
+    "aligned_length": 5425,
+    "time_seconds": 8.1
+  },
+  "primers": {}
+}

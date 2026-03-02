@@ -1,0 +1,10 @@
+{
+  "taxon": "Bathycoccaceae_F",
+  "rank": "family",
+  "gene": "18S",
+  "tsv_total": 6531,
+  "centroids": 308,
+  "cluster_members": 6223,
+  "fasta_sequences": 308,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

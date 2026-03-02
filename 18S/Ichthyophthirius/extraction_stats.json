@@ -1,0 +1,10 @@
+{
+  "taxon": "Ichthyophthirius_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 444,
+  "centroids": 19,
+  "cluster_members": 425,
+  "fasta_sequences": 19,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

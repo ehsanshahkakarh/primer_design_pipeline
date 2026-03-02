@@ -1,0 +1,10 @@
+{
+  "taxon": "Rehmannia_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 265,
+  "centroids": 160,
+  "cluster_members": 105,
+  "fasta_sequences": 160,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

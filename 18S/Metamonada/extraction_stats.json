@@ -1,0 +1,10 @@
+{
+  "taxon": "Metamonada_C",
+  "rank": "class",
+  "gene": "18S",
+  "tsv_total": 3242,
+  "centroids": 573,
+  "cluster_members": 2669,
+  "fasta_sequences": 573,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

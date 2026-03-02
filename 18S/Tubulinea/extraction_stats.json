@@ -1,0 +1,10 @@
+{
+  "taxon": "Tubulinea_P",
+  "rank": "division",
+  "gene": "18S",
+  "tsv_total": 4810,
+  "centroids": 1323,
+  "cluster_members": 3487,
+  "fasta_sequences": 1323,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

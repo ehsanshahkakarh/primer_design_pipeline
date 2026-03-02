@@ -1,0 +1,10 @@
+{
+  "taxon": "Mastigamoebidae_F",
+  "rank": "family",
+  "gene": "18S",
+  "tsv_total": 10879,
+  "centroids": 1609,
+  "cluster_members": 9270,
+  "fasta_sequences": 1609,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

@@ -1,0 +1,10 @@
+{
+  "taxon": "Zea_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 6252,
+  "centroids": 372,
+  "cluster_members": 5880,
+  "fasta_sequences": 372,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

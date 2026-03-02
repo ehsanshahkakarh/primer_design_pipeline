@@ -1,0 +1,10 @@
+{
+  "taxon": "Aureococcus_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 182,
+  "centroids": 36,
+  "cluster_members": 146,
+  "fasta_sequences": 36,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

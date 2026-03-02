@@ -1,0 +1,10 @@
+{
+  "taxon": "Ostreococcus_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 6432,
+  "centroids": 293,
+  "cluster_members": 6139,
+  "fasta_sequences": 293,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

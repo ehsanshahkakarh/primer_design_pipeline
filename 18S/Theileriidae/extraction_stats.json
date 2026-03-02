@@ -1,0 +1,10 @@
+{
+  "taxon": "Theileriidae_F",
+  "rank": "family",
+  "gene": "18S",
+  "tsv_total": 1221,
+  "centroids": 101,
+  "cluster_members": 1120,
+  "fasta_sequences": 101,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

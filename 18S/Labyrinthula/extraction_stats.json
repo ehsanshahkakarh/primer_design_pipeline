@@ -1,0 +1,10 @@
+{
+  "taxon": "Labyrinthula_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 238,
+  "centroids": 62,
+  "cluster_members": 176,
+  "fasta_sequences": 62,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

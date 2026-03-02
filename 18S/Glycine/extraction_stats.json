@@ -1,0 +1,10 @@
+{
+  "taxon": "Glycine_G",
+  "rank": "genus",
+  "gene": "18S",
+  "tsv_total": 1830,
+  "centroids": 85,
+  "cluster_members": 1745,
+  "fasta_sequences": 85,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

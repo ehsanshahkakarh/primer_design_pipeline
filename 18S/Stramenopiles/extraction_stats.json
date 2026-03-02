@@ -1,0 +1,10 @@
+{
+  "taxon": "Stramenopiles_C",
+  "rank": "class",
+  "gene": "18S",
+  "tsv_total": 24799,
+  "centroids": 3668,
+  "cluster_members": 21131,
+  "fasta_sequences": 3668,
+  "note": "FASTA contains only centroid sequences; members are represented by their centroid at 97% OTU clustering"
+}

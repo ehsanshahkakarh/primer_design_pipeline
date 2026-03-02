@@ -1,0 +1,578 @@
+{
+  "taxa": [
+    {
+      "original_name": "Neovahlkampfiidae_F",
+      "base_name": "Neovahlkampfiidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Neovahlkampfia_G",
+      "base_name": "Neovahlkampfia",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Leptomonas_G",
+      "base_name": "Leptomonas",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Euglenaceae_F",
+      "base_name": "Euglenaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Rhabdomonadales_O",
+      "base_name": "Rhabdomonadales",
+      "suffix": "_O",
+      "rank": "order",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Schistosoma_G",
+      "base_name": "Schistosoma",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Chydorus_G",
+      "base_name": "Chydorus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Apis_G",
+      "base_name": "Apis",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Acyrthosiphon_G",
+      "base_name": "Acyrthosiphon",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Eurytemora_G",
+      "base_name": "Eurytemora",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Limulus_G",
+      "base_name": "Limulus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Sabatieria_G",
+      "base_name": "Sabatieria",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Heterodera_G",
+      "base_name": "Heterodera",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Rattus_G",
+      "base_name": "Rattus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Nematostella_G",
+      "base_name": "Nematostella",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Aphelidiaceae_F",
+      "base_name": "Aphelidiaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Aphelidium_G",
+      "base_name": "Aphelidium",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Exobasidiomycetes_C",
+      "base_name": "Exobasidiomycetes",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Malassezia_G",
+      "base_name": "Malassezia",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Ustanciosporium_G",
+      "base_name": "Ustanciosporium",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Spizellomycetaceae_F",
+      "base_name": "Spizellomycetaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Spizellomyces_G",
+      "base_name": "Spizellomyces",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Chlorociboria_G",
+      "base_name": "Chlorociboria",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Articulospora_G",
+      "base_name": "Articulospora",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Trichocladium_G",
+      "base_name": "Trichocladium",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Lecanicillium_G",
+      "base_name": "Lecanicillium",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Pycnora_G",
+      "base_name": "Pycnora",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Corynespora_G",
+      "base_name": "Corynespora",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Phaeosphaeria_G",
+      "base_name": "Phaeosphaeria",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Glomerales_O",
+      "base_name": "Glomerales",
+      "suffix": "_O",
+      "rank": "order",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Rhizophagus_G",
+      "base_name": "Rhizophagus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Rhizopus_G",
+      "base_name": "Rhizopus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Hexamitidae_F",
+      "base_name": "Hexamitidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Hexamita_G",
+      "base_name": "Hexamita",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Discoba_C",
+      "base_name": "Discoba",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Metamonada_C",
+      "base_name": "Metamonada",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Evosea_P",
+      "base_name": "Evosea",
+      "suffix": "_P",
+      "rank": "phylum",
+      "query_column": "division",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Discosea_P",
+      "base_name": "Discosea",
+      "suffix": "_P",
+      "rank": "phylum",
+      "query_column": "division",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Tubulinea_P",
+      "base_name": "Tubulinea",
+      "suffix": "_P",
+      "rank": "phylum",
+      "query_column": "division",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Vannellidae_F",
+      "base_name": "Vannellidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Vannella_G",
+      "base_name": "Vannella",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Paramoebidae_F",
+      "base_name": "Paramoebidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Paramoeba_G",
+      "base_name": "Paramoeba",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Mastigamoebidae_F",
+      "base_name": "Mastigamoebidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Mastigamoeba_G",
+      "base_name": "Mastigamoeba",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Ulva_G",
+      "base_name": "Ulva",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Auxenochlorella_G",
+      "base_name": "Auxenochlorella",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Bathycoccaceae_F",
+      "base_name": "Bathycoccaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Ostreococcus_G",
+      "base_name": "Ostreococcus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Glycine_G",
+      "base_name": "Glycine",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Rehmannia_G",
+      "base_name": "Rehmannia",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Zea_G",
+      "base_name": "Zea",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Stramenopiles_C",
+      "base_name": "Stramenopiles",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Rhizaria_C",
+      "base_name": "Rhizaria",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Alveolata_C",
+      "base_name": "Alveolata",
+      "suffix": "_C",
+      "rank": "class",
+      "query_column": null,
+      "query_type": "lineage"
+    },
+    {
+      "original_name": "Oxytrichidae_F",
+      "base_name": "Oxytrichidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Stylonychia_G",
+      "base_name": "Stylonychia",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Ichthyophthirius_G",
+      "base_name": "Ichthyophthirius",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Theileriidae_F",
+      "base_name": "Theileriidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Sarcocystidae_F",
+      "base_name": "Sarcocystidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Gregarinidae_F",
+      "base_name": "Gregarinidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Paulinellidae_F",
+      "base_name": "Paulinellidae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Paulinella_G",
+      "base_name": "Paulinella",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Labyrinthulaceae_F",
+      "base_name": "Labyrinthulaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Labyrinthula_G",
+      "base_name": "Labyrinthula",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Phaeodactylaceae_F",
+      "base_name": "Phaeodactylaceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Phaeodactylum_G",
+      "base_name": "Phaeodactylum",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Thalassiosiraceae_F",
+      "base_name": "Thalassiosiraceae",
+      "suffix": "_F",
+      "rank": "family",
+      "query_column": "family",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Thalassiosira_G",
+      "base_name": "Thalassiosira",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    },
+    {
+      "original_name": "Aureococcus_G",
+      "base_name": "Aureococcus",
+      "suffix": "_G",
+      "rank": "genus",
+      "query_column": "genus",
+      "query_type": "direct"
+    }
+  ],
+  "summary": {
+    "total": 70,
+    "by_rank": {
+      "family": 17,
+      "genus": 42,
+      "order": 2,
+      "class": 6,
+      "phylum": 3
+    },
+    "by_query_type": {
+      "direct": 62,
+      "lineage": 8
+    }
+  }
+}

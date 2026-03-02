@@ -1,0 +1,26 @@
+{
+  "extraction": {
+    "count": 1323,
+    "total_bp": 1685139,
+    "min_len": 801,
+    "max_len": 4116,
+    "avg_len": 1273.7,
+    "centroids": 1323,
+    "cluster_members": 3487,
+    "tsv_total": 4810
+  },
+  "filtering": {},
+  "alignment": {
+    "input_representatives": 15,
+    "algorithm": "Q-INS-i",
+    "unknown_added": 412,
+    "output_sequences": 427,
+    "aligned_length": 8190,
+    "time_seconds": 226.6
+  },
+  "primers": {},
+  "representatives": {
+    "unique_genera": 15,
+    "unknown_sequences": 412
+  }
+}
