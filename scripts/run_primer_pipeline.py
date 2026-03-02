@@ -32,16 +32,16 @@ from build_lineage_index import build_index_from_csv, build_ancestor_index, CENS
 # Configuration paths (relative to project root)
 CONFIG = {
     '18S': {
-        'cluster_tsv': 'eukcensus_metadata/eukcensus_18S.clusters.97.tsv',
-        'main_fasta': 'eukcensus_metadata/eukcensus_2025_18S.97.fna',
-        'priority_list': 'novelty_lineage_analysis/output/organized_hierarchy/tree/18s_priority_prune_list.txt',
+        'cluster_tsv': 'primer_design_pipeline/metadata/eukcensus_2025_18S_clusters.tsv',
+        'main_fasta': 'primer_design_pipeline/metadata/eukcensus_2025_18S.fna',
+        'priority_list': 'primer_design_pipeline/metadata/18s_priority_prune_list.txt',
         'output_base': 'primer_design_pipeline/18S',
         'min_length': 1200,
     },
     '16S': {
-        'cluster_tsv': 'eukcensus_metadata/eukcensus_16S.clusters.97.tsv',
-        'main_fasta': 'eukcensus_metadata/eukcensus_2025_16S.97.fna',
-        'priority_list': 'novelty_lineage_analysis/output/organized_hierarchy/tree/16s_priority_prune_list.txt',
+        'cluster_tsv': 'primer_design_pipeline/metadata/eukcensus_2025_16S_clusters.tsv',
+        'main_fasta': 'primer_design_pipeline/metadata/eukcensus_2025_16S.fna',
+        'priority_list': 'primer_design_pipeline/metadata/16s_priority_prune_list.txt',
         'output_base': 'primer_design_pipeline/16S',
         'min_length': 1200,
     }
