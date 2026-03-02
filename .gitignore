@@ -29,6 +29,11 @@ Thumbs.db
 /18S/
 /16S/
 
+# Large metadata files (download separately)
+metadata/18S_subsets/
+metadata/*.tsv
+metadata/*.fna
+
 # Temporary files
 *.tmp
 *.log

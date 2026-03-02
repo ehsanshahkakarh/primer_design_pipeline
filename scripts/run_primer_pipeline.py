@@ -187,6 +187,89 @@ def get_fasta_stats(fasta_file: Path) -> dict:
     }
 
 
+def select_representatives(sequences_tsv: Path, fasta_input: Path,
+                           reps_output: Path, unknown_output: Path) -> tuple:
+    """
+    Select one representative per unique genus from extracted sequences.
+
+    For each unique genus:
+    - Pick the centroid with the largest cluster size
+    - Sequences with '.U.' in genus go to unknown_output (for --add later)
+
+    Args:
+        sequences_tsv: TSV file with sequence metadata (has genus, cluster_size columns)
+        fasta_input: Input FASTA file with all sequences
+        reps_output: Output FASTA for representative sequences
+        unknown_output: Output FASTA for unknown (.U.) sequences
+
+    Returns:
+        (num_representatives, num_unknown)
+    """
+    import csv
+
+    # Read sequence metadata from TSV
+    genus_best = {}  # genus -> (seq_id, cluster_size)
+    unknown_ids = set()
+
+    with open(sequences_tsv, 'r') as f:
+        reader = csv.DictReader(f, delimiter='\t')
+        for row in reader:
+            seq_id = row.get('sequence_id', row.get('centroid', ''))
+            genus = row.get('genus', '')
+
+            # Handle cluster_size - might be string
+            try:
+                cluster_size = int(row.get('cluster_size', row.get('size', 1)))
+            except (ValueError, TypeError):
+                cluster_size = 1
+
+            # Check if this is an unknown genus
+            if '.U.' in genus or genus.endswith('.U'):
+                unknown_ids.add(seq_id)
+            else:
+                # Track best representative per genus (largest cluster)
+                if genus not in genus_best or cluster_size > genus_best[genus][1]:
+                    genus_best[genus] = (seq_id, cluster_size)
+
+    # Get representative IDs
+    rep_ids = {info[0] for info in genus_best.values()}
+
+    # Read FASTA and write to appropriate output files
+    fasta_seqs = {}
+    current_id = None
+    current_seq = []
+
+    with open(fasta_input, 'r') as f:
+        for line in f:
+            if line.startswith('>'):
+                if current_id:
+                    fasta_seqs[current_id] = ''.join(current_seq)
+                current_id = line[1:].strip().split()[0]
+                current_seq = []
+            else:
+                current_seq.append(line.strip())
+        if current_id:
+            fasta_seqs[current_id] = ''.join(current_seq)
+
+    # Write representatives
+    reps_written = 0
+    with open(reps_output, 'w') as f:
+        for seq_id in rep_ids:
+            if seq_id in fasta_seqs:
+                f.write(f">{seq_id}\n{fasta_seqs[seq_id]}\n")
+                reps_written += 1
+
+    # Write unknowns
+    unknowns_written = 0
+    with open(unknown_output, 'w') as f:
+        for seq_id in unknown_ids:
+            if seq_id in fasta_seqs:
+                f.write(f">{seq_id}\n{fasta_seqs[seq_id]}\n")
+                unknowns_written += 1
+
+    return reps_written, unknowns_written
+
+
 def run_pipeline_for_taxon(taxon: dict, config: dict, project_root: Path, dry_run: bool = False) -> dict:
     """Run the complete pipeline for a single taxon."""
     taxon_name = taxon['base_name']
@@ -231,7 +314,7 @@ def run_pipeline_for_taxon(taxon: dict, config: dict, project_root: Path, dry_ru
     extract_script = scripts_dir / 'extract_sequences_by_taxon.py'
 
     cmd = [
-        'python', str(extract_script),
+        'python3', str(extract_script),
         '--tsv', str(project_root / config['cluster_tsv']),
         '--taxon', taxon_name,
         '--rank', rank if rank != 'species' else 'species',
@@ -330,44 +413,101 @@ def run_pipeline_for_taxon(taxon: dict, config: dict, project_root: Path, dry_ru
         except Exception:
             pass
 
-    # STEP 4: Select representatives (for larger datasets)
-    # STEP 5: MAFFT alignment
+    # STEP 4: Select representatives (1 per unique genus)
+    reps_dir = output_dir / 'representatives'
+    reps_dir.mkdir(exist_ok=True)
+    reps_fasta = reps_dir / f"{taxon_name}_representatives.fasta"
+    unknown_fasta = reps_dir / f"{taxon_name}_unknown.fasta"
+
+    # Determine input file - prefer filtered, fall back to original
+    if dry_run:
+        rep_input = filtered_fasta
+    elif filtered_fasta.exists() and filtered_fasta.stat().st_size > 0:
+        rep_input = filtered_fasta
+    else:
+        rep_input = fasta_file
+
+    print(f"   → Step 4: Select representatives (1 per genus) {'[DRY-RUN]' if dry_run else ''}")
+    if not dry_run:
+        # Read the sequences TSV to get genus info
+        sequences_tsv = output_dir / f"{taxon_name}_sequences.tsv"
+        if sequences_tsv.exists():
+            reps_count, unknown_count = select_representatives(
+                sequences_tsv, rep_input, reps_fasta, unknown_fasta
+            )
+            result['steps_completed'].append('select_reps')
+            result['stats']['representatives'] = {
+                'unique_genera': reps_count,
+                'unknown_sequences': unknown_count
+            }
+            print(f"     📊 Representatives: {reps_count} unique genera")
+            if unknown_count > 0:
+                print(f"     📊 Unknown (.U.): {unknown_count} sequences (will add via --add)")
+        else:
+            print(f"     ⚠️ No sequences TSV found, using all sequences")
+            reps_fasta = rep_input
+            unknown_count = 0
+    else:
+        result['steps_completed'].append('select_reps')
+
+    # STEP 5: MAFFT alignment using Q-INS-i (considers RNA secondary structure)
+    # Q-INS-i is slower but critical for rRNA to identify structurally accessible regions
     align_dir = output_dir / 'align'
     align_dir.mkdir(exist_ok=True)
     aligned_fasta = align_dir / f"{taxon_name}_aligned.fasta"
 
-    # Determine input file for MAFFT - prefer filtered, fall back to original
-    if dry_run:
-        mafft_input = filtered_fasta
-    elif filtered_fasta.exists() and filtered_fasta.stat().st_size > 0:
-        mafft_input = filtered_fasta
-        print(f"   → Using filtered FASTA for alignment")
-    else:
-        mafft_input = fasta_file
-        print(f"   → Using original FASTA for alignment (filter may have failed)")
-
-    # Get input stats for alignment
-    if not dry_run:
-        input_stats = get_fasta_stats(mafft_input)
-        result['stats']['alignment']['input_sequences'] = input_stats['count']
-        print(f"     📊 Input for alignment: {input_stats['count']} sequences")
-
-    cmd = ['mafft', '--auto', '--thread', '4', str(mafft_input)]
-
-    print(f"   → Step 5: MAFFT alignment {'[DRY-RUN]' if dry_run else ''}")
+    print(f"   → Step 5: MAFFT Q-INS-i alignment (secondary structure aware) {'[DRY-RUN]' if dry_run else ''}")
     if not dry_run:
         try:
             import time
             start_time = time.time()
-            with open(aligned_fasta, 'w') as f:
-                subprocess.run(cmd, stdout=f, stderr=subprocess.DEVNULL, check=True, timeout=7200)
+
+            # Check if we have representatives
+            if reps_fasta.exists() and reps_fasta.stat().st_size > 0:
+                reps_stats = get_fasta_stats(reps_fasta)
+                result['stats']['alignment'] = {'input_representatives': reps_stats['count']}
+                result['stats']['alignment']['algorithm'] = 'Q-INS-i'
+                print(f"     📊 Aligning {reps_stats['count']} representative sequences")
+
+                # Step 5a: Align representatives using Q-INS-i
+                # Q-INS-i considers secondary structure via four-way consistency
+                ref_aligned = align_dir / f"{taxon_name}_ref_aligned.fasta"
+                cmd = ['mafft-qinsi', '--thread', '4', str(reps_fasta)]
+                with open(ref_aligned, 'w') as f:
+                    subprocess.run(cmd, stdout=f, stderr=subprocess.DEVNULL, check=True, timeout=14400)
+
+                # Step 5b: Add unknown sequences if any
+                if unknown_fasta.exists() and unknown_fasta.stat().st_size > 0:
+                    unknown_stats = get_fasta_stats(unknown_fasta)
+                    print(f"     📊 Adding {unknown_stats['count']} unknown sequences via --add")
+                    result['stats']['alignment']['unknown_added'] = unknown_stats['count']
+
+                    # Use --add with the Q-INS-i aligned reference
+                    cmd_add = ['mafft', '--add', str(unknown_fasta), '--thread', '4', str(ref_aligned)]
+                    with open(aligned_fasta, 'w') as f:
+                        subprocess.run(cmd_add, stdout=f, stderr=subprocess.DEVNULL, check=True, timeout=7200)
+                else:
+                    # No unknowns, just use the reference alignment
+                    import shutil
+                    shutil.copy(ref_aligned, aligned_fasta)
+            else:
+                # Fallback: align all sequences directly with Q-INS-i
+                mafft_input = rep_input
+                input_stats = get_fasta_stats(mafft_input)
+                result['stats']['alignment'] = {'input_sequences': input_stats['count'], 'algorithm': 'Q-INS-i'}
+                print(f"     📊 Input for alignment: {input_stats['count']} sequences")
+
+                cmd = ['mafft-qinsi', '--thread', '4', str(mafft_input)]
+                with open(aligned_fasta, 'w') as f:
+                    subprocess.run(cmd, stdout=f, stderr=subprocess.DEVNULL, check=True, timeout=14400)
+
             elapsed = round(time.time() - start_time, 1)
             result['steps_completed'].append('align')
 
             # Get alignment stats
             align_stats = get_fasta_stats(aligned_fasta)
             result['stats']['alignment']['output_sequences'] = align_stats['count']
-            result['stats']['alignment']['aligned_length'] = align_stats['max_len']  # All seqs same length after alignment
+            result['stats']['alignment']['aligned_length'] = align_stats['max_len']
             result['stats']['alignment']['time_seconds'] = elapsed
 
             print(f"     ✓ Alignment complete in {elapsed}s")

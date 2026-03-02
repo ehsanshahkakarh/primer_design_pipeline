@@ -22,7 +22,21 @@ Different applications require different amplicon sizes:
 
 ## How It Works
 
-### 1. Single Consensus Sequence
+### 1. Representative Selection & Alignment
+
+The pipeline ensures taxonomic diversity and structural awareness:
+
+1. **Select representatives**: One sequence per unique genus (largest cluster wins)
+2. **Separate unknowns**: `.U.` sequences (unknown genus) are set aside
+3. **Q-INS-i alignment**: Representatives are aligned using MAFFT's Q-INS-i algorithm, which considers **RNA secondary structure**
+4. **Add unknowns**: `.U.` sequences are added to the reference MSA via `mafft --add`
+
+**Why Q-INS-i?**
+- rRNA (18S/16S) has significant secondary structure
+- Q-INS-i identifies regions that are both **conserved** AND **structurally accessible**
+- Primers in accessible regions hybridize better to the target
+
+### 2. Single Consensus Sequence
 
 The pipeline generates **one consensus sequence** from the alignment, which is used for all three product sizes.
 
